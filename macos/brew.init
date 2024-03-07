@@ -1,0 +1,74 @@
+#!/bin/sh
+  
+#
+# This installs the "command line tools", these are necessary to install the
+# homebrew universe
+#
+xcode-select --install
+
+#
+# This installes the core of the homebrew universe
+#
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+#
+# All needed for sdr++ / sdr++brown
+#
+brew install gtk+3
+brew install pkg-config
+brew install portaudio
+brew install fftw
+brew install libusb
+brew install cmake
+brew install glfw
+brew install codec2
+brew install libiio
+brew install libad9361
+brew install python-mako
+brew install volk
+brew install zstd
+
+# Lib for bladerf
+brew install libbladerf
+
+# Lib for RTL_SDR
+brew install rtl-sdr
+
+# Lib for air spy / airspyhf
+# Disable if you want to us soapysdr drivers
+brew install airspy
+brew install airspyhf
+
+# Lib for hackers
+# Disable if you want to us soapysdr drivers
+brew install hackrf
+
+# Limes suite
+brew install limesuite
+
+#
+# This is for the SoapySDR universe
+# There are even more radios supported for which you need
+# additional modules, for a list, goto the web page
+# https://formulae.brew.sh
+# and insert the search string "pothosware". In the long
+# list produced, search for the same string using the
+# "search" facility of your internet browser
+#
+
+# if using soapy drives and you disable the libs above then uncomment the 
+# the lines for the drivers listed here.
+
+brew install pothosware/pothos/soapysdr
+#brew install pothosware/pothos/limesuite
+#brew install pothosware/pothos/soapyairspy
+#brew install pothosware/pothos/soapyairspyhf
+#brew install pothosware/pothos/soapyhackrf
+brew install pothosware/pothos/soapyredpitaya
+#brew install pothosware/pothos/soapyrtlsdr
+brew install pothosware/pothos/soapyplutosdr
+
+#
+# This is for PrivacyProtection
+#
+brew analytics off
