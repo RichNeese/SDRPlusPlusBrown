@@ -4,7 +4,7 @@
 
 Please see [upstream project page](https://github.com/AlexandreRouma/SDRPlusPlus) for the basic list of its features.
 
-Last merge: 2024-01-23
+Last merge: 2024-03-03
 
 Please see [brown fork page](https://sdrpp-brown.san.systems) for list of fork features.
 
@@ -45,4 +45,3 @@ Found an issue? Fork is worse than original? File an [issue](https://github.com/
   * use this filename (debug2.keystore) in app/build.gradle along with passwords in the signingConfigs -> debug section.
 
 Good luck.
-
