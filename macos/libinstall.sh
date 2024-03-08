@@ -2,9 +2,30 @@
 
 #####################################################
 #
-# prepeare your Macintosh for compiling piHPSDR
+# prepeare your MacOS for compiling sdr++ sdr++brown
 #
 ######################################################
+
+#####################################################
+#
+# ENABLE SOAPYSDR DRIVERS
+# if you enable all the soapy drivers it will disable the
+# default libs/drivers that allow use with out SoapySDR
+#
+# Defualt for all is N
+#
+# Must be enable SOAPYSDR=Y to install SoapySDR and modules
+#
+######################################################
+
+SOAPYSDR=N  
+SOAPYAISPY=N
+SOAPYAISPYHF=N
+SOAPYHACKRF=N
+SOAPYLIMESUITE=N
+SOAPYREDPITAYA=N
+SOAPYPLUTOSDR=N
+SOAPYRTLSDR=N 
 
 ################################################################
 #
@@ -100,7 +121,7 @@ fi
 
 ################################################################
 #
-# All homebrew packages needed for pihpsdr
+# All homebrew packages needed for sdr++ sdr++brown
 #
 ################################################################
 $BREW install gtk+3
@@ -110,8 +131,54 @@ $BREW install portaudio
 $BREW install fftw
 $BREW install libusb
 $BREW install cmake
+$BREW install glfw
+$BREW install codec2
+$BREW install libiio
+$BREW install libad9361
+$BREW install python-mako
+$BREW install volk
+$BREW install zstd
 
-################################################################
+
+#########################################################
+# Lib for bladerf
+#########################################################
+$BREW install libbladerf
+
+#########################################################
+# Lib for RTL_SDR
+#########################################################
+if [ SOAPYRTLSDR == N  ]; then
+	$BREW install rtl-sdr
+fi
+#########################################################
+# Lib for airspy / airspyhf
+# Disable if you want to us soapysdr drivers
+#########################################################
+if [ SOAPYAISPY == N ]; then
+	$BREW install airspy
+fi
+
+if [ SOAPYAISPYHF == N ]; then
+	$BREW install airspyhf
+fi
+
+#########################################################
+# Lib for hackers
+# Disable if you want to us soapysdr drivers
+#########################################################
+if [ SOAPYHACKRF == N ]; then
+	$BREW install hackrf
+fi
+
+#########################################################
+# Limes suite
+#########################################################
+if [ SOAPYLIMESUITE == N ]; then
+	$BREW install limesuite
+fi
+
+#############################################################
 #
 # This is for the SoapySDR universe
 # There are even more radios supported for which you need
@@ -121,16 +188,39 @@ $BREW install cmake
 # list produced, search for the same string using the
 # "search" facility of your internet browser
 #
+################################################################
+if [ SOAPYSDR == Y ]; then
 
-$BREW install pothosware/pothos/soapyplutosdr
-$BREW install pothosware/pothos/limesuite
-$BREW install pothosware/pothos/soapyrtlsdr
-$BREW install pothosware/pothos/soapyairspy
-$BREW install pothosware/pothos/soapyairspyhf
-$BREW install pothosware/pothos/soapyhackrf
-$BREW install pothosware/pothos/soapyredpitaya
-$BREW install pothosware/pothos/soapyrtlsdr
-$BREW install pothosware/pothos/soapyplutosdr
+	$BREW install soapysdr
+
+	if [ SOAPYAIRSPY == Y]; then
+		$BREW install pothosware/pothos/soapyairspy
+	fi
+
+	if [ SOAPYAISPYHF == Y ]; then
+		$BREW install pothosware/pothos/soapyairspyhf
+	fi
+
+	if [ SOAPYHACKRF == Y ]; then
+		$BREW install pothosware/pothos/soapyhackrf
+	fi
+
+	if [ SOAPYLIMESUITE == Y ]; then
+		$BREW install pothosware/pothos/limesuite
+	fi
+
+	if [ SOAPYREDPITAYA == Y  ]; then	
+		$BREW install pothosware/pothos/soapyredpitaya
+	fi
+
+	if [ SOAPYRTLSDR == Y  ]; then
+		$BREW install pothosware/pothos/soapyrtlsdr
+	fi
+
+	if [ SOAPYPLUTOSDR == Y  ]; then
+		$BREW install pothosware/pothos/soapyplutosdr
+	fi
+fi
 
 ################################################################
 #
