@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Dir for building pkgs
+mkdir tmp
+
 #####################################################
 #
 # prepeare your Linux system for compiling SDR++
@@ -32,18 +35,19 @@ sudo apt -y install libglfw3-dev
 sudo apt -y install libiio-dev
 sudo apt -y install libiio-utils
 sudo apt -y install libad9361-dev
+sudo apt -y install librtaudio-dev
 sudo apt -y install libvolk2-dev
 sudo apt -y install libvulkan-volk-dev
 sudo apt -y install libzstd-dev
 sudo apt -y install zstd
-echo ""
+echo "Done"
 
 #########################################################
 # Python make
 #########################################################
 echo "INSTALLING MAKO FOR PYTHON3"
 sudo apt -y install python3-mako
-echo ""
+echo "Done"
 
 #########################################################
 # Lib for bladerf
@@ -57,7 +61,7 @@ sudo apt -y install bladerf-fpga-hostedx40
 sudo apt -y install bladerf-fpga-hostedxa4
 sudo apt -y install bladerf-fpga-hostedxa5
 sudo apt -y install bladerf-fpga-hostedxa9
-echo ""
+echo "Done"
 
 #########################################################
 # Lib for RTL_SDR
@@ -65,7 +69,7 @@ echo ""
 echo "Installing RTL-SDR"
 sudo apt -y install librtlsdr-dev
 sudo apt -y install rtl-sdr
-echo ""
+echo "Done"
 
 #########################################################
 # Lib for airspy / airspyhf
@@ -78,7 +82,7 @@ sudo apt -y install libairspy-dev
 echo "Installing AIRSPYHF"
 sudo apt -y install airspyhf
 sudo apt -y install libairspyhf-dev
-echo ""
+echo "Done"
 
 #########################################################
 # Lib for hackers
@@ -87,7 +91,7 @@ echo ""
 echo "Installing HackRF"
 sudo apt -y install hackrf
 sudo apt -y install libhackrf-dev
-echo ""
+echo "Done"
 
 #########################################################
 # Limes suite
@@ -95,7 +99,7 @@ echo ""
 echo "Installing LimeSuite"
 sudo apt -y install limesuite
 sudo apt -y install liblimesuite-dev
-echo ""
+echo "Done"
 
 ################################################################
 #
@@ -112,7 +116,141 @@ sudo apt -y install soapysapt-cache search bladerf-*dr-tools
 sudo apt -y install libsoapysdr-doc
 sudo apt -y install uhd-host
 sudo apt -y install uhd-soapysdr
-echo ""
+sudo apt -y install soapysdr-module-uhd
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapy audio module and build it.
+################################################################
+echo " building and installing SoapyAudio"
+cd tmp
+git clone https://github.com/pothosware/SoapyAudio.git
+cd SoapyAudio
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay SoapyRTLTCP module and build it.
+################################################################
+echo " building and installing SoapyRTLTCP"
+cd tmp
+git clone https://github.com/pothosware/SoapyRTLTCP.git
+cd SoapyRTLTCP
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapyPlutoSDR module and build it.
+################################################################
+echo " building and installing SoapyPlutoSDR"
+cd tmp
+git clone https://github.com/pothosware/SoapyPlutoSDR.git
+cd SoapyPlutoSDR
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapyPlutoSDR module and build it.
+################################################################
+echo " building and installing SoapyMultiSDR"
+cd tmp
+git clone https://github.com/pothosware/SoapyMultiSDR.git
+cd SoapyMultiSDR
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapy NestSDR module and build it.
+################################################################
+echo " building and installing SoapyNestSDR"
+cd tmp
+git clone https://github.com/pothosware/SoapyNestSDR.git
+cd SoapyNestSDR
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapyPlutoSDR module and build it.
+################################################################
+echo " building and installing SoapySpyServer"
+git clone https://github.com/pothosware/SoapySpyServer.git
+cd SoapySpyServer
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapyPlutoSDR module and build it.
+################################################################
+echo " building and installing SoapyVOLKConverters"
+git clone https://github.com/pothosware/SoapyVOLKConverters.git
+cd SoapyVOLKConverters
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapy sidekiq module and build it.
+################################################################
+echo " building and installing SoapySidekiq"
+cd tmp
+git clone https://github.com/pothosware/SoapySidekiq.git
+cd SoapySidekiq
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
+
+################################################################
+# GIt the sdrplay soapy FunCube module and build it.
+################################################################
+echo " building and installing SoapyFCDPP"
+cd tmp
+git clone https://github.com/pothosware/SoapyFCDPP.git
+cd SoapyFCDPP
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ~
+echo "Done"
 
 ################################################################
 #
@@ -123,7 +261,7 @@ echo "Installing SDRPLAY API FOR Linux And SOAPYSDR"
 wget https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-3.14.0.run
 sudo chmod 755 ./SDRplay_RSP_API-Linux-3.14.0.run
 sudo ./SDRplay_RSP_API-Linux-3.14.0.run
-echo ""
+echo "Done"
 
 ################################################################
 # GIt the sdrplay soapy module and build it.
@@ -136,7 +274,10 @@ cd build
 cmake ..
 make
 sudo make install
-echo ""
+cd ~
+echo "Done"
+
+rm -rf tmp
 
 echo ""
 echo "IF any errors please report them so that they can be fixed"
